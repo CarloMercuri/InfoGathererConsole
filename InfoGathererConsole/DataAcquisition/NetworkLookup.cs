@@ -36,13 +36,43 @@ namespace InfoGathererConsole.DataAcquisition
             }
         }
 
+        public List<string> GetLocalMachineInfo()
+        {
+            List<string> returnList = new List<string>();
+            string hostName = Environment.MachineName;
+            IPHostEntry hostInfo = Dns.GetHostEntry(hostName);
+
+            // Get the IP address list that resolves to the host names contained in the 
+            // Alias property.
+            IPAddress[] address = hostInfo.AddressList;
+
+            // Get the alias names of the addresses in the IP address list.
+            String[] alias = hostInfo.Aliases;
+
+            returnList.Add("Host name : " + hostInfo.HostName);
+            returnList.Add("\nAliases : ");
+            for (int index = 0; index < alias.Length; index++)
+            {
+                returnList.Add(alias[index]);
+            }
+
+            Console.WriteLine();
+            returnList.Add("\nIP address list : ");
+            for (int index = 0; index < address.Length; index++)
+            {
+                returnList.Add(address[index].ToString());
+            }
+
+            return returnList;
+        }
+
         public string GetHostnameFromIp(string Ip)
         {
             string hostname = "";
 
             try
             {
-                IPHostEntry ipHostEntry = Dns.GetHostByAddress(Ip);
+                IPHostEntry ipHostEntry = Dns.GetHostEntry(Ip);
                 hostname = ipHostEntry.HostName;
             }
             catch (FormatException)
