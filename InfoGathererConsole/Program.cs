@@ -35,7 +35,7 @@ namespace InfoGathererConsole
 
                 int choice = GetUserInputInteger(false, true);
 
-                NetworkLookup lookup = new NetworkLookup();
+                InfoGatheringControl lookup = new InfoGatheringControl();
 
                 switch (choice)
                 {
@@ -62,7 +62,7 @@ namespace InfoGathererConsole
                         Console.WriteLine();
                         string traceInput = Console.ReadLine();
 
-                        string traceResult = lookup.Traceroute(traceInput);
+                        string traceResult = lookup.TraceRoute(traceInput);
                         Console.WriteLine($"Result: {traceResult}");
 
                         break;
